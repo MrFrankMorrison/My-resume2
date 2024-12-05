@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Переміщення різних об'єктів</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #e0e0e0;
+    }
+    .draggable {
+      position: absolute;
+      cursor: grab;
+      user-select: none;
+      opacity: 0.7; /* Напівпрозорість */
+    }
+    .circle {
+      width: 100px;
+      height: 100px;
+      background-color: rgba(255, 0, 0, 0.7); /* Напівпрозорий червоний */
+      border-radius: 50%;
+    }
+    .square {
+      width: 120px;
+      height: 120px;
+      background-color: rgba(0, 255, 0, 0.7); /* Напівпрозорий зелений */
+    }
+    .triangle {
+      width: 0;
+      height: 0;
+      border-left: 60px solid transparent;
+      border-right: 60px solid transparent;
+      border-bottom: 100px solid rgba(0, 0, 255, 0.7); /* Напівпрозорий синій */
+    }
+  </style>
+</head>
+<body>
+  <div class="draggable circle"></div>
+  <div class="draggable square"></div>
+  <div class="draggable triangle"></div>
+
+  <script>
+    const draggables = document.querySelectorAll('.draggable');
+
+    draggables.forEach((item) => {
+      item.addEventListener('mousedown', (e) => {
+        const onMouseMove = (event) => {
+          item.style.left = `${event.clientX - item.offsetWidth / 2}px`;
+          item.style.top = `${event.clientY - item.offsetHeight / 2}px`;
+        };
+
+        const onMouseUp = () => {
+          document.removeEventListener('mousemove', onMouseMove);
+          document.removeEventListener('mouseup', onMouseUp);
+        };
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+!DOCTYPE html
+html lang=en
+head
+  meta charset=UTF-8
+  meta name=viewport content=width=device-width, initial-scale=1.0
+  titleПереміщення об'єктівtitle
+  style
+    body {
+      margin 0;
+      height 100vh;
+      display flex;
+      justify-content center;
+      align-items center;
+      background-color #f0f0f0;
+    }
+    .draggable {
+      width 100px;
+      height 100px;
+      position absolute;
+      cursor grab;
+      user-select none;
+    }
+    .red {
+      background-color red;
+    }
+    .blue {
+      background-color blue;
+    }
+    .green {
+      background-color green;
+    }
+  style
+head
+body
+  div class=draggable reddiv
+  div class=draggable bluediv
+  div class=draggable greendiv
+
+  script
+    const draggables = document.querySelectorAll('.draggable');
+
+    draggables.forEach((item) = {
+      item.addEventListener('mousedown', (e) = {
+        const onMouseMove = (event) = {
+          item.style.left = `${event.clientX - item.offsetWidth  2}px`;
+          item.style.top = `${event.clientY - item.offsetHeight  2}px`;
+        };
+
+        const onMouseUp = () = {
+          document.removeEventListener('mousemove', onMouseMove);
+          document.removeEventListener('mouseup', onMouseUp);
+        };
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+      });
+    });
+  script
+body
+html
